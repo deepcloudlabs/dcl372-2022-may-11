@@ -3,6 +3,7 @@ package com.example.imdb.controller;
 import java.util.Collection;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,21 +31,25 @@ import com.example.imdb.service.MovieRepository;
 @CrossOrigin
 public class ImdbRestController {
 	private MovieRepository movieRepository;
+	private ModelMapper modelMapper;
 	
 	public ImdbRestController(MovieRepository movieRepository) {
 		this.movieRepository = movieRepository;
 	}
+	
 	// Resource: Movie ? URL -> Canonical Form
 	// GET http://localhost:7100/imdb/api/v1/movies/42
 	@GetMapping("{id}")
-	public Movie findMovieById(@PathVariable int id){
-		return movieRepository.findMovieById(id);
+	public MovieResponse findMovieById(@PathVariable int id){
+		return modelMapper.map(movieRepository.findMovieById(id),MovieResponse.class);
 	}
 
 	// GET http://localhost:7100/imdb/api/v1/movies?genre=Comedy
 	@GetMapping(params = {"genre","director","range"})
-	public Collection<Movie> findMovieByGenre(@RequestParam String genre){
-		return movieRepository.findAllMoviesByGenre(genre);
+	public List<MovieResponse> findMovieByGenre(@RequestParam String genre){
+		return movieRepository.findAllMoviesByGenre(genre)
+				              .stream()
+				              .map(movie -> modelMapper.map(movie,MovieResponse.class)).toList();
 	}
 	
 	// POST http://localhost:7100/imdb/api/v1/movies/criteria
@@ -56,8 +61,8 @@ public class ImdbRestController {
 	}
 	
 	// GET http://localhost:7100/imdb/api/v1/movies/42/directors/2
-	@GetMapping(value="/{id}/directors/{no}")
-	public List<Director> getMovieDirectorsById(@PathVariable int id,@PathVariable int no){
+	@GetMapping(value="/{id}/directors")
+	public List<Director> getMovieDirectorsById(@PathVariable int id){
 		return movieRepository.findMovieById(id).getDirectors();
 	}
 	
