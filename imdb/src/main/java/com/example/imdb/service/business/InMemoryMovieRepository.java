@@ -10,6 +10,7 @@ import javax.annotation.PreDestroy;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.imdb.aop.Profiling;
 import com.example.imdb.domain.Director;
 import com.example.imdb.domain.Genre;
 import com.example.imdb.domain.Movie;
@@ -26,6 +27,7 @@ import com.example.imdb.service.SequenceService;
 // @Scope("singleton") // "prototype", "request", "session"
 // @RequestScope
 // @SessionScope
+//@Profiling
 public class InMemoryMovieRepository implements MovieRepository {
 	// @Autowired // 1. Field Injection
 	private SequenceService sequenceSrv;
@@ -1598,6 +1600,7 @@ public class InMemoryMovieRepository implements MovieRepository {
 	}
 
 	@Override
+	@Profiling
 	public Collection<Genre> findAllGenres() {
 		return genres.values();
 	}

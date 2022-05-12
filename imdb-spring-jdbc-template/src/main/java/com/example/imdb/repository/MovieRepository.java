@@ -17,5 +17,7 @@ public interface MovieRepository {
 	Movie update(Movie movie);
 
 	Optional<Movie> removeById(int movieId);
+
+	List<Movie> findAllByYearBetween(int fromYear, int toYear);
 	
 }

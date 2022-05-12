@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
-import com.example.lottery.service.QualityLevel;
 import com.example.lottery.service.RandomNumberService;
-import com.example.lottery.service.ServiceQuality;
 
 @Configuration
 public class AppConfig {

@@ -23,6 +23,7 @@ public class ImdbApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		movieRepository.findAllMoviesByGenre("Comedy")
 		               .forEach(System.err::println);
+		movieRepository.findAllGenres();
 		
 	}
 

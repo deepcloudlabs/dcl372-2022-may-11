@@ -9,6 +9,13 @@ public class Movie {
 
 	public Movie() {
 	}
+	
+ 	public Movie(int movieId, String title, int year, String imdb) {
+		this.movieId = movieId;
+		this.title = title;
+		this.year = year;
+		this.imdb = imdb;
+	}
 
 	public int getMovieId() {
 		return movieId;

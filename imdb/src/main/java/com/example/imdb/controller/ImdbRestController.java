@@ -26,15 +26,16 @@ import com.example.imdb.service.MovieRepository;
 //       POST, PUT, PATCH -> Request+Response Body
 @RestController
 @RequestScope
-@RequestMapping("movies")
+@RequestMapping("/api/v1/movies")
 @Validated
 @CrossOrigin
 public class ImdbRestController {
 	private MovieRepository movieRepository;
 	private ModelMapper modelMapper;
 	
-	public ImdbRestController(MovieRepository movieRepository) {
+	public ImdbRestController(MovieRepository movieRepository,ModelMapper modelMapper) {
 		this.movieRepository = movieRepository;
+		this.modelMapper = modelMapper;
 	}
 	
 	// Resource: Movie ? URL -> Canonical Form
@@ -44,10 +45,10 @@ public class ImdbRestController {
 		return modelMapper.map(movieRepository.findMovieById(id),MovieResponse.class);
 	}
 
-	// GET http://localhost:7100/imdb/api/v1/movies?genre=Comedy
-	@GetMapping(params = {"genre","director","range"})
-	public List<MovieResponse> findMovieByGenre(@RequestParam String genre){
-		return movieRepository.findAllMoviesByGenre(genre)
+	// GET http://localhost:7100/imdb/api/v1/movies?fromYear=1970&toYear=1979
+	@GetMapping(params = {"fromYear","toYear"})
+	public List<MovieResponse> findAllByYearBetween(@RequestParam int fromYear,@RequestParam int toYear){
+		return movieRepository.findAllMoviesByYearRange(fromYear,toYear)
 				              .stream()
 				              .map(movie -> modelMapper.map(movie,MovieResponse.class)).toList();
 	}

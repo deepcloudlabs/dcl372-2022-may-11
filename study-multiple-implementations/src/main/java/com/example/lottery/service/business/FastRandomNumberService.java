@@ -3,7 +3,6 @@ package com.example.lottery.service.business;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,8 @@ import com.example.lottery.service.ServiceQuality;
 
 @Service
 @Lazy
-//@ServiceQuality(QualityLevel.FAST)
-@ConditionalOnProperty(name = "quality.level", havingValue = "FAST")
+@ServiceQuality(QualityLevel.FAST)
+//@ConditionalOnProperty(name = "quality.level", havingValue = "FAST")
 public class FastRandomNumberService implements RandomNumberService {
 
 	private Random random = new SecureRandom();
