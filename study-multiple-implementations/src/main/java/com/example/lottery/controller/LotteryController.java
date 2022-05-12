@@ -22,6 +22,7 @@ public class LotteryController {
 	private LotteryService lotteryService;
 
 	public LotteryController(LotteryService lotteryService) {
+		System.err.println("LotteryController is created.");
 		this.lotteryService = lotteryService;
 	}
 

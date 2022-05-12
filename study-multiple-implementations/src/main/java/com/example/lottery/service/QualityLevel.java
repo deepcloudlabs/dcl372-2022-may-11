@@ -1,5 +1,5 @@
 package com.example.lottery.service;
 
 public enum QualityLevel {
-	FAST, SECURE
+	FAST, SECURE, CHEAP
 }
