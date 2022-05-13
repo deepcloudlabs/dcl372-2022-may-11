@@ -1,32 +1,26 @@
 package com.example.imdb.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 // Alt + Shift + S
-@Entity
-@Table(name = "movies")
-@NamedQueries({
-	@NamedQuery(name="Movie.findAll", query = "select m from Movie m"), // JPQL
-	@NamedQuery(name="Movie.findAllByYear", query="select m from Movie m where m.year=:year"),
-	@NamedQuery(name="Movie.findAllByYearBetween", query="select m from Movie m where m.year between :from and :to")
-})
+@Document(collection = "movies1")
 public class Movie {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="movieid")
 	private int movieId;
-	@Column(name = "title")
+	@NotEmpty
 	private String title;
-	@Column(name = "year")
+	@Indexed
+	@Min(1940)
 	private int year;
-	@Column(name = "imdb")
+	@Indexed(unique = true)
+	@Pattern(regexp="tt[0-9]{6,}")
 	private String imdb;
 
 	public Movie() {
