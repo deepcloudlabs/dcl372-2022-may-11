@@ -21,7 +21,7 @@ public class JpaMovieRepository implements MovieRepository {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional(propagation = Propagation.NEVER)
 	public Movie addMovie(Movie movie) {
 		entityManager.persist(movie);
 		return movie;

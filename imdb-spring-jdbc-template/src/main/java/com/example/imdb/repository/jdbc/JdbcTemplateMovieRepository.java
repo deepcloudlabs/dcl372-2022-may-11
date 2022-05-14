@@ -79,7 +79,11 @@ public class JdbcTemplateMovieRepository implements MovieRepository {
 
 	@Override
 	public List<Movie> findAllMovies(int pageNo, int pageSize) {
-		return jdbcTemplate.query(SELECT_MOVIES_BY_PAGE, Map.of("offset", pageNo * pageSize, "size", pageSize),
+		return jdbcTemplate.query(SELECT_MOVIES_BY_PAGE, 
+				Map.of(
+						"offset", pageNo * pageSize, 
+						"size", pageSize
+						),
 				MOVIE_ROW_MAPPER);
 	}
 

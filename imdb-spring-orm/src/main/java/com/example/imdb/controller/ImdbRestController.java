@@ -23,6 +23,7 @@ public class ImdbRestController {
 
 	@GetMapping(value = "/movies", params = { "fromYear", "toYear" })
 	public List<Movie> getMoviesByYearRangeAndGenre(@RequestParam int fromYear, @RequestParam int toYear) {
+		movieRepository.addMovie(new Movie());
 		return movieRepository.findAllByYearBetween(fromYear, toYear);
 	}
 

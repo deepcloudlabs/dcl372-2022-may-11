@@ -5,8 +5,6 @@ import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +21,6 @@ import com.example.imdb.repository.MovieRepository;
 @Validated
 public class ImdbRestController {
 	private final MovieRepository movieRepository;
-	@Autowired
-	private MongoTemplate mongoTemplate;
 
 	public ImdbRestController(MovieRepository movieRepository) {
 		this.movieRepository = movieRepository;
