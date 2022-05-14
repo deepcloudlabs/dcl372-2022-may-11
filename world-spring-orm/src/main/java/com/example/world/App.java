@@ -1,0 +1,38 @@
+package com.example.world;
+
+import java.util.function.Consumer;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.example.world.config.AppConfig;
+import com.example.world.entity.Country;
+import com.example.world.repository.CountryRepository;
+import com.example.world.service.BusinessService;
+
+/**
+ *
+ *  @author Binnur Kurt <binnur.kurt@gmail.com>
+ */
+@SuppressWarnings("unused")
+public class App {
+	private static final Consumer<Country> printCountry = country -> {
+		System.err.println(country);
+		System.err.println(country.getCapital());
+		System.err.println(country.getCities().getClass());
+		System.err.println(country.getLanguages().getClass());
+		country.getCities().forEach(System.err::println);
+		country.getLanguages().forEach(System.err::println);
+	};
+
+	public static void main(String[] args) {
+		try (ConfigurableApplicationContext container = new AnnotationConfigApplicationContext(AppConfig.class)) {
+			final CountryRepository repo = container.getBean(CountryRepository.class);
+			BusinessService bs = container.getBean(BusinessService.class);
+			System.err.println(bs.getClass());
+//			bs.haveGun();
+			bs.haveFun();
+//			repo.findById("TUR").ifPresent(printCountry);
+		}
+	}
+}
